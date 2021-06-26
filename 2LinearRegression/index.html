@@ -32,7 +32,11 @@
     timeSec: tf.tensor2d(testData.timeSec, [20, 1])
   };
 
-  console.log(trainTensors);
-  console.log(testTensors);
+  //model: function that maps input data to target output
+  //in this case, takes file size and maps it to its download time
+  //models are tunable, the input-output computation can be adjusted
+  const model = tf.sequential();
+  // input of this layer is a 1D tensor with one value (file size)
+  model.add(tf.layers.dense({inputShape: [1], units: 1}));
   console.log("done");
 </script>:
