@@ -11,7 +11,7 @@
       0.560, 0.480, 0.399, 0.153, 0.149]
   };
   // this data should not be used in training, only in getting effectiveness of model
-  // otherwise we are taking a test we already have the answers to, overfit to the data
+  // otherwise we are will overfit to the training the data
   const testData = {
     sizeMB: [5.000, 0.200, 0.001, 9.000, 0.002, 0.020, 0.008, 4.000, 0.001, 1.000,
       0.005, 0.080, 0.800, 0.200, 0.050, 7.000, 0.005, 0.002, 8.000, 0.008],
@@ -57,4 +57,12 @@
   // when epochs was only 10, error was very high
   // the model was underfitting
   // underfitting: our model hadn't adapted enough to the training data
+  model.predict(tf.tensor2d([[smallFileMB], [bigFileMB], [hugeFileMB]])).print();
+  // predicting values well outside training data is risky, it would be better if we could collect more training data
+  // each input has to be given in its own list, to create a tensor of the correct shape
+  // model expects each eg to have that shape
+  // to provide n samples, stack them together into a single input tensor
+  // since input shape is [1], n samples will have a shape of [n, 1]
+  // note that it would not be simply [n], because the shape of each input must be [1]
+  // i.e. this would be an error ->model.predict(tf.tensor1d([smallFileMB, bigFileMB, hugeFileMB])).print();
 </script>:
