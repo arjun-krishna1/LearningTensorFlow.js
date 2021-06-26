@@ -37,13 +37,21 @@
   //models are tunable, the input-output computation can be adjusted
   const model = tf.sequential();
   // input of this layer is a 1D tensor with one value (file size)
-  model.add(tf.layers.dense({inputShape: [1], units: 1}));
+  model.add(tf.layers.dense({ inputShape: [1], units: 1 }));
 
   //model compilation, takes:
   //loss function: measures network's performance
   // optimizer: how the network will update its weights based on data and loss
-  model.compile({optimizer: "sgd", loss: "meanAbsoluteError"});
+  model.compile({ optimizer: "sgd", loss: "meanAbsoluteError" });
   //sgd: stochastic gradient descent, use calculus to determine weight adjustments
   //meanAbsoluteError: average of the absolute diff between each target and prediction
-  console.log(model);
+
+  //fit trains model
+  // pass in input tensor and desired output tensor (sizeMB, timeSec)
+  //epochs: number of complete iterations through training set
+  (async function () {
+    await model.fit(trainTensors.sizeMB, trainTensors.timeSec, { epochs: 10 });
+  })().then(() => {
+    model.evaluate(testTensors.sizeMB, testTensors.timeSec).print();
+  });
 </script>:
