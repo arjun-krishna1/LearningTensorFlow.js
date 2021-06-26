@@ -50,8 +50,11 @@
   // pass in input tensor and desired output tensor (sizeMB, timeSec)
   //epochs: number of complete iterations through training set
   (async function () {
-    await model.fit(trainTensors.sizeMB, trainTensors.timeSec, { epochs: 10 });
+    await model.fit(trainTensors.sizeMB, trainTensors.timeSec, { epochs: 200 });
   })().then(() => {
     model.evaluate(testTensors.sizeMB, testTensors.timeSec).print();
   });
+  // when epochs was only 10, error was very high
+  // the model was underfitting
+  // underfitting: our model hadn't adapted enough to the training data
 </script>:
