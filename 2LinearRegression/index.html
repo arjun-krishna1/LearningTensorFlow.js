@@ -38,5 +38,12 @@
   const model = tf.sequential();
   // input of this layer is a 1D tensor with one value (file size)
   model.add(tf.layers.dense({inputShape: [1], units: 1}));
-  console.log("done");
+
+  //model compilation, takes:
+  //loss function: measures network's performance
+  // optimizer: how the network will update its weights based on data and loss
+  model.compile({optimizer: "sgd", loss: "meanAbsoluteError"});
+  //sgd: stochastic gradient descent, use calculus to determine weight adjustments
+  //meanAbsoluteError: average of the absolute diff between each target and prediction
+  console.log(model);
 </script>:
