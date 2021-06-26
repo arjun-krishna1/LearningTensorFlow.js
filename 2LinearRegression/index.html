@@ -10,6 +10,8 @@
       0.070, 0.289, 0.076, 0.744, 0.083,
       0.560, 0.480, 0.399, 0.153, 0.149]
   };
+  // this data should not be used in training, only in getting effectiveness of model
+  // otherwise we are taking a test we already have the answers to, overfit to the data
   const testData = {
     sizeMB: [5.000, 0.200, 0.001, 9.000, 0.002, 0.020, 0.008, 4.000, 0.001, 1.000,
       0.005, 0.080, 0.800, 0.200, 0.050, 7.000, 0.005, 0.002, 8.000, 0.008],
@@ -17,5 +19,20 @@
       0.052, 0.063, 0.183, 0.087, 0.066, 0.558, 0.066, 0.068, 0.610, 0.057]
   };
 
-  console.log(trainData);
+  // tensors are a data structure that can be used to move data between different models
+  // basically a multi-dimensional array
+  // [20, 1] is the size of the array, 20 training examples, each example has 1 value
+  const trainTensors = {
+    sizeMB: tf.tensor2d(trainData.sizeMB, [20, 1]),
+    timeSec: tf.tensor2d(trainData.timeSec, [20, 1])
+  };
+
+  const testTensors = {
+    sizeMB: tf.tensor2d(testData.sizeMB, [20, 1]),
+    timeSec: tf.tensor2d(testData.timeSec, [20, 1])
+  };
+
+  console.log(trainTensors);
+  console.log(testTensors);
+  console.log("done");
 </script>:
